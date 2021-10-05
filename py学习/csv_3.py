@@ -26,7 +26,32 @@ xz = xz_list.find_all(name="strong")
 birth= xz_list.find_all(name='small')
 regex_score = '<em class="star_m"><em style="width:(.*?%)"></em></em>'
 
-getscore = re.findall(regex_score,page_text, re.S)
-print(getscore)
-today=[]
+getscore = re.findall(regex_score,page_text,re.S)
+
+today= xz_list.find_all(name="p")
+'''for each_xz in today:
+    content = each_xz.text
+    print(content[:-4])'''
+
+xz_dict = {}
+xz_lists = []
+i = 0
+
+with open("d:\\pyproject\\csv_test\\c4.csv",'w',newline='') as f3:
+    writer1=csv.DictWriter(f3,headers)
+    writer1.writeheader()
+    for each_row in xz:
+        # print(each_row)
+        xz_dict.clear()
+        xz_dict[headers[0]] = each_row.text
+        xz_dict[headers[1]] = birth[i].text
+        xz_dict[headers[2]] = getscore[i+1] + '的得分'
+        xz_dict[headers[3]] = today[i].text[:-4]
+        i += 1
+        writer1.writerow(xz_dict)
+
+
+
+
+
 
